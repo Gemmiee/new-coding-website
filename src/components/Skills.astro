@@ -1,0 +1,407 @@
+---
+const skills = [
+	{ title: 'Web', items: ['HTML & CSS', 'JavaScript', 'Astro', 'Cloudflare'] },
+	{ title: 'Python', items: ['Data Analysis', 'Numpy', 'Pandas', 'Tkinter', 'Pytorch', 'Pygame'] },
+	{ title: 'Tools', items: ['Git & GitHub', 'Linux', 'VS Code', 'Command Line' ] },
+];
+---
+
+<section class="skills" id="skills">
+	<h2>&gt; Skills</h2>
+
+	<div class="band">
+		<div class="stage">
+			<!-- gemmie present images -->
+			<div class="presenter">
+				<img class="head" src="/gemmie_present_head.png" alt="" />
+				<img src="/gemmie_present_torso.png" alt="" />
+				<img src="/gemmie_present_microphone.png" alt="" />
+			</div>
+
+			<div class="board-wrap">
+				<!-- mobile only: card picker + auto-advance timer -->
+				<div class="tabs">
+					{skills.map((skill, i) => <button class:list={{ active: i === 0 }}>{skill.title}</button>)}
+				</div>
+				<div class="timer"><span></span></div>
+
+				<div class="board">
+					<img src="/whiteboard.png" alt="" />
+					<div class="cards">
+						{
+							skills.map((skill, i) => (
+								<div class:list={['card', { active: i === 0 }]}>
+									<h3>{skill.title}</h3>
+									<ul>
+										{skill.items.map((item) => (
+											<li>{item}</li>
+										))}
+									</ul>
+								</div>
+							))
+						}
+					</div>
+				</div>
+			</div>
+			<div class="audience"></div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.skills {
+		padding: 32px 0 48px;
+	}
+
+	h2 {
+		max-width: 1400px;
+		margin: 0 auto 8px;
+		padding: 0 40px;
+		font-size: 3rem;
+		line-height: 1;
+	}
+
+	/* DESKTOP POSITIONING */
+	.band {
+		--top: 20%; /* where the wall starts */
+		--p: min(40vw, 650px); /* gemmie size */
+		--b: min(66vw, 1000px); /* whiteboard size */
+		--lift: min(18vw, 160px); /* gap between the board and the band's bottom */
+		--crowd: calc(var(--p) * 1.45); /* how big the people are */
+		--audience: calc(var(--crowd) * 0.95); /* how high the crowd reaches */
+		position: relative;
+		overflow: hidden;
+		padding: 0 24px;
+	}
+
+	/* pinned to the stage */
+	.audience {
+		position: absolute;
+		left: -100vw;
+		right: -100vw;
+		bottom: 0;
+		z-index: 2;
+		height: var(--audience);
+		background: url('/audience.png') repeat-x top / auto var(--crowd);
+	}
+
+	/* the colored wall, with faint diagonal stripes */
+	.band::before {
+		content: '';
+		position: absolute;
+		inset: var(--top) 0 0 0;
+		background:
+			repeating-linear-gradient(45deg, rgb(255 255 255 / 0.15) 0 2px, transparent 2px 16px),
+			var(--band);
+	}
+
+	/* curtain edge: a thin strip with scallops hanging off it */
+	.band::after {
+		content: '';
+		position: absolute;
+		top: var(--top);
+		left: 0;
+		right: 0;
+		height: 16px;
+		background:
+			linear-gradient(var(--name), var(--name)) top / 100% 8px no-repeat,
+			radial-gradient(circle at 50% 0, var(--name) 16px, transparent 17px) 0 0 / 32px 16px repeat-x;
+	}
+
+	.stage {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		justify-content: center;
+		align-items: flex-start; /* gemmie's head lines up with the top of the board */
+	}
+
+	.presenter {
+		position: relative;
+		z-index: 1;
+		flex-shrink: 0;
+		width: var(--p);
+		aspect-ratio: 1;
+		/* her image has empty space on the sides, so a bigger overlap gives the board more room */
+		margin-right: calc(var(--p) * -0.2);
+	}
+
+	/* soft spotlight behind the presenter */
+	.presenter::before {
+		content: '';
+		position: absolute;
+		inset: 10% -15% 0;
+		background: radial-gradient(ellipse at 50% 70%, rgba(214, 170, 89, 0.55), transparent 65%);
+	}
+
+	.presenter img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+	}
+
+	.head {
+		transform-origin: 50% 58%;
+		animation: tilt 4s ease-in-out infinite;
+	}
+
+	@keyframes tilt {
+		0%,
+		100% {
+			transform: rotate(-4deg);
+		}
+		50% {
+			transform: rotate(4deg);
+		}
+	}
+
+	/* extends the podium down past the band's bottom edge (cut off there), colors sampled from the torso image */
+	.presenter::after {
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: 23.3%;
+		width: 49.7%;
+		height: 100vh;
+		background: linear-gradient(
+			90deg,
+			#31201a 0 1.2%,
+			#795951 1.2% 11.9%,
+			#38251f 11.9% 12.9%,
+			#836055 12.9% 89.1%,
+			#3b2821 89.1% 90.1%,
+			#71544c 90.1% 99%,
+			#31201a 99%
+		);
+	}
+
+	.board-wrap {
+		width: var(--b);
+		margin-bottom: var(--lift);
+	}
+
+	.board {
+		position: relative;
+		container-type: inline-size; /* lets the card text scale with the board (cqw) */
+	}
+
+	.board > img {
+		display: block;
+		width: 100%;
+	}
+
+	/* the writable white area of whiteboard.png */
+	.cards {
+		position: absolute;
+		inset: 9% 7% 20% 7%;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 4cqw;
+		font-family: 'Gloria Hallelujah', cursive;
+	}
+
+	.card {
+		padding: 2cqw;
+		border: 0.35cqw solid currentColor;
+		/* uneven corners for a hand-drawn look */
+		border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+	}
+
+	.card:nth-child(1) {
+		color: #2b3a8f;
+	}
+
+	.card:nth-child(2) {
+		color: #c44332;
+	}
+
+	.card:nth-child(3) {
+		color: #2f5f1b;
+	}
+
+	h3 {
+		margin: 0 0 1.5cqw;
+		font-size: 4.5cqw;
+		font-weight: 400;
+		text-align: center;
+	}
+
+	ul {
+		margin: 0;
+		padding-left: 2.5cqw;
+		font-size: 2.8cqw;
+		line-height: 1.6;
+	}
+
+	.tabs,
+	.timer {
+		display: none;
+	}
+
+	/* desktop: crop the band's bottom so the whole section fits on one screen
+	   (192px = nav + section padding + title) */
+	@media (min-width: 901px) {
+		.band {
+			max-height: max(calc(100vh - 192px), 560px);
+		}
+	}
+
+	@media (max-width: 900px) {
+		h2,
+		.band {
+			padding-left: 16px;
+			padding-right: 16px;
+		}
+
+		.band {
+			--top: 0;
+			--p: 62vw;
+			--lift: 16vw;
+			--crowd: calc(var(--p) * 1.4);
+			--audience: calc(var(--crowd) * 0.85);
+			padding-top: 32px;
+		}
+
+		.stage {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		/* board first, presenter below it so the podium still sits on the band's edge */
+		.board-wrap {
+			order: -1;
+			width: 100%;
+			margin-bottom: 24px;
+		}
+
+		.tabs {
+			display: flex;
+			gap: 10px;
+		}
+
+		.tabs button {
+			flex: 1;
+			padding: 10px;
+			border: 2px solid var(--ink);
+			border-radius: 10px;
+			background: var(--bg);
+			color: var(--ink);
+			font: inherit;
+			font-weight: 700;
+		}
+
+		.tabs button.active {
+			background: var(--ink);
+			color: var(--bg);
+		}
+
+		.timer {
+			display: block;
+			height: 6px;
+			margin: 12px 0 16px;
+			border-radius: 3px;
+			background: rgb(0 0 0 / 0.1);
+			overflow: hidden;
+			transition:
+				opacity 0.4s,
+				height 0.4s,
+				margin 0.4s;
+		}
+
+		/* each time this bar fills up, the script moves to the next card */
+		.timer span {
+			display: block;
+			height: 100%;
+			background: var(--ink);
+			transform-origin: left;
+			animation: fill 6s linear infinite;
+		}
+
+		/* fades and folds away once a button is pressed */
+		.timer.stopped {
+			opacity: 0;
+			height: 0;
+			margin-top: 0;
+		}
+
+		.timer.stopped span {
+			animation-play-state: paused;
+		}
+
+		/* one card at a time, filling the whole white area */
+		.cards {
+			inset: 7% 6% 16% 6%;
+			grid-template-columns: 1fr;
+		}
+
+		.card {
+			display: none;
+			grid-area: 1 / 1;
+			padding: 0;
+			border: none;
+		}
+
+		.card.active {
+			display: block;
+			animation: appear 0.4s ease-out;
+		}
+
+		h3 {
+			margin-bottom: 2cqw;
+			font-size: 9cqw;
+		}
+
+		ul {
+			columns: 2;
+			padding-left: 6cqw;
+			font-size: 5.5cqw;
+			line-height: 1.5;
+		}
+
+		/* pulled up so she overlaps the bottom of the board */
+		.presenter {
+			margin: calc(var(--p) * -0.4) 0 var(--lift);
+		}
+	}
+
+	@keyframes appear {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+	}
+
+	@keyframes fill {
+		from {
+			transform: scaleX(0);
+		}
+		to {
+			transform: scaleX(1);
+		}
+	}
+</style>
+
+<script>
+	const tabs = document.querySelectorAll('.tabs button');
+	const cards = document.querySelectorAll('.card');
+	const timer = document.querySelector('.timer')!;
+	let current = 0;
+
+	function show(i: number) {
+		tabs[current].classList.remove('active');
+		cards[current].classList.remove('active');
+		current = i;
+		tabs[current].classList.add('active');
+		cards[current].classList.add('active');
+	}
+
+	timer.addEventListener('animationiteration', () => show((current + 1) % cards.length));
+
+	// once someone picks a card, stop auto-advancing so they can read at their own pace
+	tabs.forEach((tab, i) =>
+		tab.addEventListener('click', () => {
+			timer.classList.add('stopped');
+			show(i);
+		}),
+	);
+</script>

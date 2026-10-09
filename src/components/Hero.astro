@@ -3,7 +3,7 @@ const GITHUB_URL = 'https://github.com/Gemmiee';
 const EMAIL = 'gemmie.dares407@passinbox.com';
 ---
 
-<section class="hero">
+<section class="hero" id="about">
 	<div>
 		<h1>
 			<span class="typed">Hi, I'm </span><span class="typed name">Anastasia</span><span class="cursor"></span>
@@ -40,13 +40,13 @@ const EMAIL = 'gemmie.dares407@passinbox.com';
 		</div>
 	</div>
 
-	<img class="avatar" src="/corporate_gemmie.png" alt="Illustrated avatar of Anastasia" />
+	<img class="avatar" src="/corporate_gemmie.webp" width="1000" height="1000" alt="Illustrated avatar of Anastasia" />
 </section>
 
 <style>
 	.hero {
 		max-width: 1400px;
-		min-height: 100vh;
+		min-height: calc(100vh - 56px); /* minus the nav bar */
 		margin: 0 auto;
 		padding: 64px 40px;
 		display: grid;
@@ -135,6 +135,7 @@ const EMAIL = 'gemmie.dares407@passinbox.com';
 
 	.avatar {
 		width: 100%;
+		height: auto;
 		max-width: 620px;
 		justify-self: center;
 	}
