@@ -3,6 +3,9 @@ import Hero from '../components/Hero.astro';
 import Nav from '../components/Nav.astro';
 import Skills from '../components/Skills.astro';
 import Projects from '../components/Projects.astro';
+import Education from '../components/Education.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -11,4 +14,24 @@ import Layout from '../layouts/Layout.astro';
 	<Hero />
 	<Skills />
 	<Projects />
+	<div class="bottom-row">
+		<Education />
+		<Contact />
+	</div>
+	<Footer />
 </Layout>
+
+<style>
+	.bottom-row {
+		max-width: 1400px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	@media (max-width: 900px) {
+		.bottom-row {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

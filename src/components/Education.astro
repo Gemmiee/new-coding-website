@@ -1,0 +1,103 @@
+---
+const timeline = [
+	{
+		title: 'BSc. in Computer Science',
+		meta: 'Ionian University of Greece',
+		desc: 'Expected graduation: 2028',
+	},
+	{
+		title: 'Python Online Courses',
+		meta: 'IT EXPERTS Athens · 2021 - present',
+		desc: 'Dedicated Python courses on AI, PyGame, PyAutoGUI, Tkinter, Data Analysis.',
+	},
+];
+---
+
+<section class="education" id="education">
+	<h2>&gt; Education</h2>
+
+	<div class="timeline">
+		{
+			timeline.map((item) => (
+				<div class="item">
+					<img class="dot" src="/sunflower.png" alt="" />
+					<div class="content">
+						<h3>{item.title}</h3>
+						<p class="meta">{item.meta}</p>
+						<p class="desc">{item.desc}</p>
+					</div>
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.education {
+		padding: 32px 20px 48px;
+	}
+
+	h2 {
+		margin: 0 0 32px;
+		font-size: 3rem;
+		line-height: 1;
+	}
+
+	.timeline {
+		position: relative;
+		padding-left: 46px;
+	}
+
+	.timeline::before {
+		content: '';
+		position: absolute;
+		top: 6px;
+		bottom: 6px;
+		left: 17px;
+		width: 2px;
+		background: linear-gradient(to bottom, var(--orange), var(--name));
+	}
+
+	.item {
+		position: relative;
+		margin-bottom: 32px;
+	}
+
+	.item:last-child {
+		margin-bottom: 0;
+	}
+
+	.dot {
+		position: absolute;
+		top: 2px;
+		left: -46px;
+		width: 36px;
+		height: 36px;
+	}
+
+	h3 {
+		margin: 0 0 4px;
+		font-size: 1.3rem;
+		color: var(--ink);
+	}
+
+	.meta {
+		margin: 0 0 6px;
+		font-size: 1rem;
+		font-weight: 700;
+		color: var(--text);
+	}
+
+	.desc {
+		margin: 0;
+		font-size: 1.10rem;
+		line-height: 1.5;
+		color: var(--text);
+	}
+
+	@media (max-width: 900px) {
+		.education {
+			padding: 32px 12px 48px;
+		}
+	}
+</style>
