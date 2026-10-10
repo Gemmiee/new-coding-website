@@ -1,4 +1,4 @@
-# code.gemmiewow.com
+# [code.gemmiewow.com](https://code.gemmiewow.com)
 
 Live at [code.gemmiewow.com](https://code.gemmiewow.com).
 
