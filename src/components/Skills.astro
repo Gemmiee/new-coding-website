@@ -85,7 +85,7 @@ const skills = [
 		background: url('/audience.png') repeat-x top / auto var(--crowd);
 	}
 
-	/* the colored wall, with faint diagonal stripes */
+	/* the wall*/
 	.band::before {
 		content: '';
 		position: absolute;
@@ -95,7 +95,7 @@ const skills = [
 			var(--band);
 	}
 
-	/* curtain edge: a thin strip with scallops hanging off it */
+	/* edges that look like curtains */
 	.band::after {
 		content: '';
 		position: absolute;
@@ -122,16 +122,8 @@ const skills = [
 		flex-shrink: 0;
 		width: var(--p);
 		aspect-ratio: 1;
-		/* her image has empty space on the sides, so a bigger overlap gives the board more room */
+		/* bigger overlap */
 		margin-right: calc(var(--p) * -0.2);
-	}
-
-	/* soft spotlight behind the presenter */
-	.presenter::before {
-		content: '';
-		position: absolute;
-		inset: 10% -15% 0;
-		background: radial-gradient(ellipse at 50% 70%, rgba(214, 170, 89, 0.55), transparent 65%);
 	}
 
 	.presenter img {
@@ -155,7 +147,7 @@ const skills = [
 		}
 	}
 
-	/* extends the podium down past the band's bottom edge (cut off there), colors sampled from the torso image */
+	/* extends the podium down */
 	.presenter::after {
 		content: '';
 		position: absolute;
@@ -182,7 +174,7 @@ const skills = [
 
 	.board {
 		position: relative;
-		container-type: inline-size; /* lets the card text scale with the board (cqw) */
+		container-type: inline-size; /* lets the card text scale with the board */
 	}
 
 	.board > img {
@@ -190,7 +182,7 @@ const skills = [
 		width: 100%;
 	}
 
-	/* the writable white area of whiteboard.png */
+	/* the white area of whiteboard.png */
 	.cards {
 		position: absolute;
 		inset: 9% 7% 20% 7%;
@@ -203,7 +195,7 @@ const skills = [
 	.card {
 		padding: 2cqw;
 		border: 0.35cqw solid currentColor;
-		/* uneven corners for a hand-drawn look */
+		/* uneven corners */
 		border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
 	}
 
@@ -238,8 +230,7 @@ const skills = [
 		display: none;
 	}
 
-	/* desktop: crop the band's bottom so the whole section fits on one screen
-	   (192px = nav + section padding + title) */
+	/* MOBILE VIEW */
 	@media (min-width: 901px) {
 		.band {
 			max-height: max(calc(100vh - 192px), 560px);
@@ -267,7 +258,6 @@ const skills = [
 			align-items: center;
 		}
 
-		/* board first, presenter below it so the podium still sits on the band's edge */
 		.board-wrap {
 			order: -1;
 			width: 100%;
@@ -308,7 +298,7 @@ const skills = [
 				margin 0.4s;
 		}
 
-		/* each time this bar fills up, the script moves to the next card */
+		/* each time this bar fills up the script moves to the next card */
 		.timer span {
 			display: block;
 			height: 100%;
@@ -317,7 +307,7 @@ const skills = [
 			animation: fill 6s linear infinite;
 		}
 
-		/* fades and folds away once a button is pressed */
+		/* fades when a button is pressed */
 		.timer.stopped {
 			opacity: 0;
 			height: 0;
@@ -328,7 +318,6 @@ const skills = [
 			animation-play-state: paused;
 		}
 
-		/* one card at a time, filling the whole white area */
 		.cards {
 			inset: 7% 6% 16% 6%;
 			grid-template-columns: 1fr;
@@ -358,7 +347,6 @@ const skills = [
 			line-height: 1.5;
 		}
 
-		/* pulled up so she overlaps the bottom of the board */
 		.presenter {
 			margin: calc(var(--p) * -0.4) 0 var(--lift);
 		}
@@ -398,7 +386,7 @@ const skills = [
 
 	timer.addEventListener('animationiteration', () => show((current + 1) % cards.length));
 
-	// once someone picks a card, stop auto-advancing so they can read at their own pace
+	// when a button is pressed, timer stops
 	tabs.forEach((tab, i) =>
 		tab.addEventListener('click', () => {
 			timer.classList.add('stopped');
