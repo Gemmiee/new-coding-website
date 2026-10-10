@@ -11,22 +11,21 @@ const skills = [
 
 	<div class="band">
 		<div class="stage">
-			<!-- gemmie present images -->
 			<div class="presenter">
-				<img class="head" src="/gemmie_present_head.png" alt="" />
-				<img src="/gemmie_present_torso.png" alt="" />
-				<img src="/gemmie_present_microphone.png" alt="" />
+				<img class="head" src="/gemmie_present_head.webp" alt="" />
+				<img src="/gemmie_present_torso.webp" alt="" />
+				<img src="/gemmie_present_microphone.webp" alt="" />
 			</div>
 
 			<div class="board-wrap">
-				<!-- mobile only: card picker + auto-advance timer -->
+				<!-- mobile only: card and timer -->
 				<div class="tabs">
 					{skills.map((skill, i) => <button class:list={{ active: i === 0 }}>{skill.title}</button>)}
 				</div>
 				<div class="timer"><span></span></div>
 
 				<div class="board">
-					<img src="/whiteboard.png" alt="" />
+					<img src="/whiteboard.webp" alt="" />
 					<div class="cards">
 						{
 							skills.map((skill, i) => (
@@ -82,7 +81,7 @@ const skills = [
 		bottom: 0;
 		z-index: 2;
 		height: var(--audience);
-		background: url('/audience.png') repeat-x top / auto var(--crowd);
+		background: url('/audience.webp') repeat-x top / auto var(--crowd);
 	}
 
 	/* the wall*/
@@ -298,7 +297,6 @@ const skills = [
 				margin 0.4s;
 		}
 
-		/* each time this bar fills up the script moves to the next card */
 		.timer span {
 			display: block;
 			height: 100%;
