@@ -1,7 +1,7 @@
 <nav>
 	<a class="logo" href="#about">~/anastasia</a>
 	<ul>
-		<li><a href="#about">./about</a></li>
+		<li class="nav-about"><a href="#about">./about</a></li>
 		<li><a href="#skills">./skills</a></li>
 		<li><a href="#projects">./projects</a></li>
 		<!-- desktop shows education and contact side by side, so this link is mobile only -->
@@ -60,16 +60,13 @@
 			display: none;
 		}
 
-		/* links scroll sideways if they don't fit */
 		ul {
 			gap: 20px;
-			overflow-x: auto;
-			white-space: nowrap;
 			font-size: 0.9rem;
 		}
 
-		.mobile-only {
-			display: list-item;
+		.nav-about {
+			display: none;
 		}
 	}
 </style>
