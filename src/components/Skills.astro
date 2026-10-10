@@ -382,9 +382,10 @@ const skills = [
 </style>
 
 <script>
-	const tabs = document.querySelectorAll('.tabs button');
-	const cards = document.querySelectorAll('.card');
-	const timer = document.querySelector('.timer')!;
+	const skills = document.querySelector('.skills')!;
+	const tabs = skills.querySelectorAll('.tabs button');
+	const cards = skills.querySelectorAll('.card');
+	const timer = skills.querySelector('.timer')!;
 	let current = 0;
 
 	function show(i: number) {
